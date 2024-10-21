@@ -11,15 +11,12 @@
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&display=swap" rel="stylesheet">
     <style>
         :root {
-        --accent-color: #128c7e;
-        --text-white: #ffffff;
-        --title-color: #202020;
-        --text-color: #505050;
-
-        --jha-font: Outfit, Helvetica, Arial, sans-serif;
+            --accent-color: #128c7e;
+            --text-white: #ffffff;
+            --title-color: #202020;
+            --text-color: #505050;
+            --jha-font: Outfit, Helvetica, Arial, sans-serif;
         }
-
-
         body, html {
             height: 100%;
             width: 100%;
@@ -33,12 +30,11 @@
             font-family: var(--jha-font);
             accent-color: var(--accent-color);
         }
-
         .container {
             display: flex;
             flex-direction: column;
             justify-content: center;
-            align-content: center ;
+            align-content: center;
             gap: 8px;
             padding-top: 120px;
             border: var(--accent-color) 1px solid;
@@ -47,7 +43,6 @@
             width: min(340px, calc(100% - 96px));
             margin-top: -20vh;
         }
-
         h1 {
             font-size: 1.5rem;
             font-weight: 600;
@@ -55,19 +50,16 @@
             margin: 0px;
             color: var(--title-color);
         }
-
         .paragraph {
             font-size: 1rem;
             font-weight: 400;
             line-height: 140%;
             color: var(--text-color);
         }
-
         .highlight {
             color: var(--title-color);
             font-weight: 600;
         }
-
         .input-field {
             display: flex;
             padding: 16px 24px;
@@ -77,15 +69,14 @@
             font-weight: 400;
             line-height: 120%;
             background-color: #f9f9fa;
-            margin: 32px 0px 4px 0px ;
+            margin: 32px 0px 4px 0px;
             font-family: var(--jha-font);
             letter-spacing: 0.1rem;
         }
-
         .button {
             display: flex;
             align-content: center;
-            justify-content: center; 
+            justify-content: center;
             background-color: var(--accent-color);
             color: var(--text-white);
             padding: 16px 32px;
@@ -94,25 +85,21 @@
             font-size: 16px;
             font-weight: 400;
             line-height: 120%;
-            cursor: pointer; 
+            cursor: pointer;
             font-family: var(--jha-font);
-  
         }
-
         .button:hover {
             background-color: #25d366;
         }
-
     </style>
 </head>
 <body>
     <div class="container">
         <h1>Start chatting without saving</h1>
         <span class="paragraph">There's no need to save the WhatsApp number. Simply enter the mobile number with the <span class="highlight">country code</span> and click the button.</span>
-        <input type="text" id="mobileNumber" class="input-field" placeholder="Mobile number" oninput="validateInput(this)">
+        <input type="text" id="mobileNumber" class="input-field" placeholder="Mobile number" oninput="validateInput(this)" onkeypress="handleKeyPress(event)">
         <button class="button" onclick="openWhatsApp()">Open in WhatsApp</button>
     </div>
-
     <script>
         function validateInput(input) {
             let value = input.value;
@@ -123,6 +110,12 @@
         function openWhatsApp() {
             var number = document.getElementById('mobileNumber').value;
             window.open('https://wa.me/' + number, '_blank');
+        }
+
+        function handleKeyPress(event) {
+            if (event.key === 'Enter') {
+                openWhatsApp();
+            }
         }
     </script>
 </body>
