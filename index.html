@@ -97,7 +97,7 @@
     <div class="container">
         <h1>Chat without saving number</h1>
         <span class="paragraph">There's no need to save the WhatsApp number. Simply enter the mobile number with the <span class="highlight">country code</span> and click the button to create a new chat.</span>
-        <input type="text" id="mobileNumber" class="input-field" placeholder="Number with country code" oninput="validateInput(this)" onkeypress="handleKeyPress(event)">
+        <input type="tel" id="mobileNumber" class="input-field" placeholder="Number with country code" oninput="validateInput(this)" onkeypress="handleKeyPress(event)" inputmode="tel" pattern="[0-9]*">
         <button class="button" onclick="openWhatsApp()">Open in WhatsApp</button>
     </div>
     <script>
