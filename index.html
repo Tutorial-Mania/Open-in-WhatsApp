@@ -60,18 +60,28 @@
             color: var(--title-color);
             font-weight: 600;
         }
+        .input-container {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            margin-top: 16px;
+        }
         .input-field {
             display: flex;
+            flex-grow: 1;
             padding: 16px 24px;
             border: 1px solid #80808080;
             border-radius: 40px;
-            font-size: 16px;
+            font-size: 1rem;
             font-weight: 400;
             line-height: 120%;
             background-color: #f9f9fa;
-            margin: 32px 0px 4px 0px;
             font-family: var(--jha-font);
-            letter-spacing: 0.1rem;
+            letter-spacing: 0.05rem;
+        }
+        .input-field:focus {
+            border: 1px solid var(--accent-color);
+            outline: none;
         }
         .button {
             display: flex;
@@ -87,6 +97,7 @@
             line-height: 120%;
             cursor: pointer;
             font-family: var(--jha-font);
+            margin-top: 16px;
         }
         .button:hover {
             background-color: #25d366;
@@ -96,20 +107,31 @@
 <body>
     <div class="container">
         <h1>Chat without saving number</h1>
-        <span class="paragraph">There's no need to save the WhatsApp number. Simply enter the mobile number with the <span class="highlight">country code</span> and click the button to create a new chat.</span>
-        <input type="tel" id="mobileNumber" class="input-field" placeholder="Number with country code" oninput="validateInput(this)" onkeypress="handleKeyPress(event)" inputmode="tel" pattern="[0-9]*">
+        <span class="paragraph">Select the <span class="highlight">country code</span> from the dropdown, then enter the mobile number and click the button to create a new chat on WhatsApp.</span>
+        <div class="input-container">
+            <select id="countryCode" class="input-field">
+                <option value="880">Bangladesh +880</option>
+                <option value="62">Indonesia +62</option>
+                <option value="31">Netherlands +31</option>
+                <option value="1">USA +1</option>
+                <option value="">Custom</option>
+                <!-- Add more country codes as needed -->
+            </select>
+            <input type="tel" id="mobileNumber" class="input-field" placeholder="Mobile number" required oninput="validateInput(this)" onkeypress="handleKeyPress(event)" inputmode="tel" pattern="[0-9]*" minlength="8">
+        </div>
         <button class="button" onclick="openWhatsApp()">Open in WhatsApp</button>
     </div>
     <script>
         function validateInput(input) {
             let value = input.value;
-            // Allow only one + at the start and digits
-            input.value = value.charAt(0) === '+' ? '+' + value.slice(1).replace(/[^0-9]/g, '') : value.replace(/[^0-9]/g, '');
+            // Allow only digits
+            input.value = value.replace(/[^0-9]/g, '');
         }
 
         function openWhatsApp() {
+            var countryCode = document.getElementById('countryCode').value;
             var number = document.getElementById('mobileNumber').value;
-            window.open('https://wa.me/' + number, '_blank');
+            window.open('https://wa.me/' + countryCode + number, '_blank');
         }
 
         function handleKeyPress(event) {
