@@ -12,6 +12,7 @@
     <style>
         :root {
             --accent-color: #128c7e;
+            --primary-color: #25d366;
             --text-white: #ffffff;
             --title-color: #202020;
             --text-color: #505050;
@@ -65,11 +66,12 @@
             flex-direction: column;
             gap: 8px;
             margin: 16px 0px;
+            position: relative;
         }
         .input-field {
             display: flex;
             height: 3.25rem;
-            padding: 0px 1.25rem;
+            padding: 0px 3.5rem 0px 1.25rem;
             border: 1px solid #80808080;
             border-radius: 40px;
             font-size: 1rem;
@@ -80,8 +82,23 @@
             letter-spacing: 0.05rem;
         }
         .input-field:focus {
-            border: 1px solid var(--accent-color);
+            border: 1px solid var(--primary-color);
             outline: none;
+        }
+        .input-select {
+        appearance: none;
+        }
+        .custom-arrow {
+            --custom-arrow-size: .45rem;
+            position: absolute;
+            border-left: var(--custom-arrow-size) solid transparent;
+            border-right: var(--custom-arrow-size) solid transparent;
+            border-top: var(--custom-arrow-size) solid var(--text-color);
+            border-radius: 2px;
+            z-index: 10;
+            top: calc(3.25rem / 2 - var(--custom-arrow-size) / 2);
+            right: 1.25rem;
+            pointer-events: none;
         }
         .button {
             display: flex;
@@ -99,7 +116,7 @@
             font-family: var(--jha-font);
         }
         .button:hover {
-            background-color: #25d366;
+            background-color: var(--primary-color);
         }
     </style>
 </head>
@@ -108,7 +125,7 @@
         <h1>Chat without saving number</h1>
         <span class="paragraph">Select the <span class="highlight">country code</span> from the dropdown, then enter the mobile number and click the button to create a new chat on WhatsApp.</span>
         <div class="input-container">
-            <select id="countryCode" class="input-field">
+            <select id="countryCode" class="input-field input-select">
                 <option value="880">Bangladesh +880</option>
                 <option value="62">Indonesia +62</option>
                 <option value="31">Netherlands +31</option>
@@ -116,6 +133,7 @@
                 <option value="">Custom</option>
                 <!-- Add more country codes as needed -->
             </select>
+            <span class="custom-arrow"></span>
             <input type="tel" id="mobileNumber" class="input-field" placeholder="Mobile number" required oninput="validateInput(this)" onkeypress="handleKeyPress(event)" inputmode="tel" pattern="[0-9]*" minlength="8">
         </div>
         <button class="button" onclick="openWhatsApp()">Open in WhatsApp</button>
